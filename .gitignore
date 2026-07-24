@@ -10,9 +10,9 @@ ENV/
 .venv/
 
 # Node / React
-frontend/node_modules/
-frontend/dist/
-frontend/build/
+node_modules/
+dist/
+build/
 .npm
 *.log
 
