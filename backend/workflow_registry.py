@@ -1,22 +1,26 @@
-from utils.models import ChatResponse
+from utils.models import WorkflowContext
 from workflows import teams_update
 
 WORKFLOW_MAP = {
     "TeamsUpdate": teams_update.execute
 }
 
-def run(workflow_name: str) -> ChatResponse:
+def run(workflow_name: str, user_message: str) -> WorkflowContext:
     """
-    Executes the specified workflow and returns its ChatResponse.
-    If the workflow is unknown, returns an unsupported issue response.
+    Creates a WorkflowContext and executes the requested workflow module.
     """
-    workflow_func = WORKFLOW_MAP.get(workflow_name)
-    
-    if workflow_func:
-        return workflow_func()
-        
-    return ChatResponse(
-        workflow="Unknown",
-        success=False,
-        logs=["Workflow not recognized or issue is unsupported."]
+    context = WorkflowContext(
+        user_message=user_message,
+        workflow=workflow_name,
+        logs=[],
+        success=True
     )
+    
+    workflow_func = WORKFLOW_MAP.get(workflow_name)
+    if workflow_func:
+        return workflow_func(context)
+        
+    context.workflow = "Unknown"
+    context.success = False
+    context.logs.append("Workflow not recognized or issue is unsupported.")
+    return context

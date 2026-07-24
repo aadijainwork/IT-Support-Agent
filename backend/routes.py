@@ -7,4 +7,10 @@ router = APIRouter()
 @router.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
     workflow_name = workflow_selector.select(request.message)
-    return workflow_registry.run(workflow_name)
+    context = workflow_registry.run(workflow_name, user_message=request.message)
+    
+    return ChatResponse(
+        workflow=context.workflow,
+        success=context.success,
+        logs=context.logs
+    )
