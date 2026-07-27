@@ -4,11 +4,12 @@ import winreg
 
 def _check_registry():
     """
-    Checks Windows Registry for Microsoft Teams installation.
+    Checks the Windows Registry for Microsoft Teams installation.
 
     Returns:
         dict
     """
+
     uninstall_keys = [
         r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
         r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
@@ -19,11 +20,13 @@ def _check_registry():
         for uninstall_key in uninstall_keys:
 
             try:
+
                 key = winreg.OpenKey(root, uninstall_key)
 
                 for i in range(winreg.QueryInfoKey(key)[0]):
 
                     try:
+
                         subkey_name = winreg.EnumKey(key, i)
                         subkey = winreg.OpenKey(key, subkey_name)
 
@@ -39,6 +42,14 @@ def _check_registry():
                         except Exception:
                             pass
 
+                        if not display_name:
+                            continue
+
+                        # Ignore Office Add-in
+                        if "Meeting Add-in" in display_name:
+                            continue
+
+                        # Accept only genuine Teams installations
                         if "Teams" not in display_name:
                             continue
 
@@ -63,7 +74,10 @@ def _check_registry():
                             "name": display_name,
                             "version": display_version,
                             "install_path": install_location,
-                            "logs": f"Registry entry found for {display_name}."
+                            "logs": (
+                                f"Microsoft Teams installation detected "
+                                f"({display_name})."
+                            )
                         }
 
                     except Exception:
@@ -74,7 +88,7 @@ def _check_registry():
 
     return {
         "installed": False,
-        "logs": "Teams installation not found in Windows Registry."
+        "logs": "Microsoft Teams installation not found in Windows Registry."
     }
 
 
@@ -88,33 +102,38 @@ def _check_common_locations():
 
     possible_paths = [
 
+        # Classic Teams
         os.path.join(
             os.environ.get("LOCALAPPDATA", ""),
             "Microsoft",
             "Teams"
         ),
 
+        # New Teams (MSIX)
         os.path.join(
             os.environ.get("LOCALAPPDATA", ""),
             "Packages",
             "MSTeams_8wekyb3d8bbwe"
         ),
 
-        r"C:\Program Files\WindowsApps",
+        # Machine-wide installation
+        r"C:\Program Files\Microsoft\Teams",
 
-        r"C:\Program Files\Microsoft",
-
-        r"C:\Program Files (x86)\Microsoft"
+        # 32-bit installation
+        r"C:\Program Files (x86)\Microsoft\Teams"
     ]
 
     for path in possible_paths:
 
-        if os.path.exists(path):
+        if os.path.isdir(path):
 
             return {
                 "installed": True,
                 "install_path": path,
-                "logs": f"Teams installation directory found at {path}."
+                "logs": (
+                    f"Microsoft Teams installation directory found at "
+                    f"{path}."
+                )
             }
 
     return {
@@ -129,15 +148,6 @@ def is_teams_installed():
 
     Returns:
         dict
-
-        Example:
-
-        {
-            "installed": True,
-            "version": "...",
-            "install_path": "...",
-            "logs": "..."
-        }
     """
 
     registry_result = _check_registry()
@@ -161,7 +171,7 @@ def is_teams_installed():
 
 def get_installation_path():
     """
-    Returns installation directory if available.
+    Returns the Teams installation path.
 
     Returns:
         str | None

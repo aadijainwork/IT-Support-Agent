@@ -11,15 +11,7 @@ def find_teams_executable():
 
     possible_paths = [
 
-        # New Microsoft Teams
-        os.path.join(
-            os.environ.get("LOCALAPPDATA", ""),
-            "Microsoft",
-            "WindowsApps",
-            "ms-teams.exe"
-        ),
-
-        # Classic Teams
+        # Classic Teams (per-user)
         os.path.join(
             os.environ.get("LOCALAPPDATA", ""),
             "Microsoft",
@@ -32,7 +24,15 @@ def find_teams_executable():
         r"C:\Program Files\Microsoft\Teams\current\Teams.exe",
 
         # 32-bit installation
-        r"C:\Program Files (x86)\Microsoft\Teams\current\Teams.exe"
+        r"C:\Program Files (x86)\Microsoft\Teams\current\Teams.exe",
+
+        # New Teams (Windows App Execution Alias)
+        os.path.join(
+            os.environ.get("LOCALAPPDATA", ""),
+            "Microsoft",
+            "WindowsApps",
+            "ms-teams.exe"
+        )
     ]
 
     for path in possible_paths:
@@ -42,7 +42,7 @@ def find_teams_executable():
             return {
                 "success": True,
                 "path": path,
-                "logs": f"Teams executable found at: {path}"
+                "logs": f"Microsoft Teams executable located at: {path}"
             }
 
     return {
@@ -54,7 +54,8 @@ def find_teams_executable():
 
 def verify_executable():
     """
-    Verifies that the Teams executable exists and is valid.
+    Verifies that the Microsoft Teams executable exists and
+    can be executed.
 
     Returns:
         dict
@@ -69,26 +70,26 @@ def verify_executable():
 
     try:
 
+        if not os.path.exists(executable):
+
+            return {
+                "success": False,
+                "path": executable,
+                "logs": "Microsoft Teams executable does not exist."
+            }
+
         if not os.access(executable, os.X_OK):
 
             return {
                 "success": False,
                 "path": executable,
-                "logs": "Teams executable exists but cannot be executed."
-            }
-
-        if os.path.getsize(executable) == 0:
-
-            return {
-                "success": False,
-                "path": executable,
-                "logs": "Teams executable is corrupted (0-byte file)."
+                "logs": "Microsoft Teams executable exists but cannot be executed."
             }
 
         return {
             "success": True,
             "path": executable,
-            "logs": "Teams executable verified successfully."
+            "logs": "Microsoft Teams executable verified successfully."
         }
 
     except Exception as e:
@@ -96,13 +97,13 @@ def verify_executable():
         return {
             "success": False,
             "path": executable,
-            "logs": f"Executable verification failed: {str(e)}"
+            "logs": f"Executable verification failed. {str(e)}"
         }
 
 
 def get_executable_path():
     """
-    Returns only the executable path.
+    Returns the Teams executable path.
 
     Returns:
         str | None
