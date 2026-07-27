@@ -1,0 +1,100 @@
+/* ==========================================
+   WELCOME SCREEN
+========================================== */
+
+.welcome-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
+
+/* ==========================================
+   AI ICON
+========================================== */
+
+.welcome-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 24px;
+    background: #2563eb;
+    color: #ffffff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 30px;
+
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.18);
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.welcome-screen h1 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* ==========================================
+   DESCRIPTION
+========================================== */
+
+.welcome-screen p {
+    max-width: 700px;
+    margin-top: 18px;
+    margin-bottom: 45px;
+
+    font-size: 17px;
+    line-height: 1.7;
+
+    color: #6b7280;
+}
+
+/* ==========================================
+   QUICK PROMPTS
+========================================== */
+
+.quick-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.quick-prompts button {
+    padding: 14px 22px;
+
+    border: 1px solid #dbe3f0;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.quick-prompts button:hover {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+}

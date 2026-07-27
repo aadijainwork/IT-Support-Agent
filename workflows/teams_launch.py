@@ -3,7 +3,6 @@ from utils.models import WorkflowContext
 from automations.teams.installation import is_teams_installed
 from automations.teams.executable import verify_executable
 from automations.teams.disk import check_disk_space
-from automations.teams.runtime import check_runtime_dependencies
 from automations.teams.process import (
     stop_teams_process,
     start_teams_process
@@ -20,17 +19,16 @@ def execute(context: WorkflowContext) -> WorkflowContext:
     """
     Executes the Microsoft Teams Launch Recovery workflow.
 
-    Workflow:
+    Workflow
 
     1. Verify Teams installation.
     2. Verify executable.
-    3. Stop any running Teams processes.
+    3. Stop running Teams processes.
     4. Clear Teams cache.
     5. Check disk space.
-    6. Verify runtime dependencies.
-    7. Launch Microsoft Teams.
-    8. Verify successful launch.
-    9. Collect diagnostics if launch fails.
+    6. Launch Teams.
+    7. Verify launch.
+    8. Collect diagnostics if launch fails.
     """
 
     # ------------------------------------------------------------
@@ -85,7 +83,7 @@ def execute(context: WorkflowContext) -> WorkflowContext:
     context.logs.append(stop_result["logs"])
 
     # ------------------------------------------------------------
-    # Step 4 : Clear Cache
+    # Step 4 : Clear Teams Cache
     # ------------------------------------------------------------
 
     cache_result = clear_teams_cache()
@@ -93,55 +91,64 @@ def execute(context: WorkflowContext) -> WorkflowContext:
     context.logs.append(cache_result["logs"])
 
     # ------------------------------------------------------------
-    # Step 5 : Check Disk Space
+    # Step 5 : Disk Space Check
     # ------------------------------------------------------------
 
     disk_result = check_disk_space()
 
     context.logs.append(disk_result["logs"])
 
-    if not disk_result["success"]:
-
-        context.success = False
-
-        context.logs.append(
-            "Insufficient disk space."
-        )
-
-        return context
-
     context.data["free_disk_space_gb"] = (
         disk_result.get("free_gb")
     )
 
-    # ------------------------------------------------------------
-    # Step 6 : Verify Runtime
-    # ------------------------------------------------------------
-
-    runtime_result = check_runtime_dependencies()
-
-    context.logs.append(runtime_result["logs"])
-
-    if not runtime_result["success"]:
-
-        context.success = False
+    if not disk_result["success"]:
 
         context.logs.append(
-            "Required runtime dependency is missing."
+            "Warning: Low disk space detected. "
+            "Attempting to launch Teams anyway."
         )
 
-        return context
-
     # ------------------------------------------------------------
-    # Step 7 : Launch Teams
+    # Step 6 : Launch Teams
     # ------------------------------------------------------------
 
     start_result = start_teams_process()
 
     context.logs.append(start_result["logs"])
 
+    if not start_result["success"]:
+
+        diagnostic_result = collect_diagnostics()
+
+        context.logs.append(diagnostic_result["logs"])
+
+        if diagnostic_result["success"]:
+
+            save_result = save_diagnostics(
+                diagnostic_result["diagnostics"]
+            )
+
+            context.logs.append(save_result["logs"])
+
+            context.data["diagnostics"] = (
+                diagnostic_result["diagnostics"]
+            )
+
+            context.data["diagnostic_report"] = (
+                save_result.get("path")
+            )
+
+        context.success = False
+
+        context.logs.append(
+            "Microsoft Teams could not be launched."
+        )
+
+        return context
+
     # ------------------------------------------------------------
-    # Step 8 : Verify Launch
+    # Step 7 : Verify Launch
     # ------------------------------------------------------------
 
     health_result = verify_launch()
@@ -149,10 +156,6 @@ def execute(context: WorkflowContext) -> WorkflowContext:
     context.logs.append(health_result["logs"])
 
     if not health_result["success"]:
-
-        # --------------------------------------------------------
-        # Step 9 : Collect Diagnostics
-        # --------------------------------------------------------
 
         diagnostic_result = collect_diagnostics()
 

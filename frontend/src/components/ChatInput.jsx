@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../css/ChatInput.css";
 
 function ChatInput({ onSend, loading }) {
   const [message, setMessage] = useState("");
@@ -14,7 +15,7 @@ function ChatInput({ onSend, loading }) {
       <div className="chat-input-wrapper">
         <textarea
           className="chat-textarea"
-          placeholder="Describe your issue (e.g. 'Teams keeps freezing', 'Outlook not syncing')..."
+          placeholder="Describe your IT issue..."
           value={message}
           disabled={loading}
           rows={1}
