@@ -1,8 +1,9 @@
 from utils.models import WorkflowContext
-from workflows import teams_update
+from workflows import teams_update, teams_launch
 
 WORKFLOW_MAP = {
-    "TeamsUpdate": teams_update.execute
+    "TeamsUpdate": teams_update.execute,
+    "TeamsLaunch": teams_launch.execute
 }
 
 def run(workflow_name: str, user_message: str) -> WorkflowContext:
