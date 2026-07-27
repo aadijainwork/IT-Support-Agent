@@ -7,7 +7,6 @@ from automations.teams.version import get_installed_teams_version
 from automations.teams.installation import is_teams_installed
 from automations.teams.executable import verify_executable
 from automations.teams.disk import get_free_disk_space
-from automations.teams.runtime import check_webview2_runtime
 from automations.teams.health import is_teams_running
 
 
@@ -32,7 +31,7 @@ def collect_diagnostics():
     executable = verify_executable()
     version = get_installed_teams_version()
     disk = get_free_disk_space()
-    runtime = check_webview2_runtime()
+
     health = is_teams_running()
 
     diagnostics["teams_installed"] = installation.get("installed")
@@ -44,9 +43,6 @@ def collect_diagnostics():
     diagnostics["executable_path"] = executable.get("path")
 
     diagnostics["free_disk_space_gb"] = disk.get("free_gb")
-
-    diagnostics["webview2_installed"] = runtime.get("installed")
-    diagnostics["webview2_version"] = runtime.get("version")
 
     diagnostics["teams_running"] = health.get("running")
     diagnostics["teams_pid"] = health.get("pid")

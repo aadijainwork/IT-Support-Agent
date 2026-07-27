@@ -1,75 +1,114 @@
-import os
-import winreg
+import time
+import psutil
 
 
-def check_webview2_runtime():
+def detect_restart_loop(
+    monitoring_duration=30,
+    check_interval=2
+):
     """
-    Checks whether Microsoft Edge WebView2 Runtime is installed.
+    Detects whether Microsoft Teams is repeatedly restarting.
+
+    Args:
+        monitoring_duration (int):
+            Total time (in seconds) to monitor Teams.
+
+        check_interval (int):
+            Time (in seconds) between checks.
 
     Returns:
         dict
     """
 
-    registry_locations = [
+    teams_process_names = {
 
-        (
-            winreg.HKEY_LOCAL_MACHINE,
-            r"SOFTWARE\Microsoft\EdgeUpdate\Clients"
-        ),
+        "ms-teams.exe",
+        "teams.exe"
 
-        (
-            winreg.HKEY_CURRENT_USER,
-            r"SOFTWARE\Microsoft\EdgeUpdate\Clients"
-        )
-    ]
-
-    WEBVIEW2_GUID = "{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}"
-
-    for root, path in registry_locations:
-
-        try:
-
-            key = winreg.OpenKey(root, path)
-            subkey = winreg.OpenKey(key, WEBVIEW2_GUID)
-
-            version, _ = winreg.QueryValueEx(subkey, "pv")
-
-            return {
-                "success": True,
-                "installed": True,
-                "version": version,
-                "logs": f"Microsoft Edge WebView2 Runtime detected. Version: {version}"
-            }
-
-        except Exception:
-            continue
-
-    return {
-        "success": False,
-        "installed": False,
-        "version": None,
-        "logs": "Microsoft Edge WebView2 Runtime is not installed."
     }
 
+    restart_count = 0
+    previous_pid = None
 
-def check_runtime_dependencies():
-    """
-    Verifies all runtime dependencies required by Teams.
+    start_time = time.time()
 
-    Returns:
-        dict
-    """
+    while time.time() - start_time < monitoring_duration:
 
-    webview_result = check_webview2_runtime()
+        current_pid = None
 
-    if not webview_result["success"]:
+        for process in psutil.process_iter(
+
+            ["pid", "name"]
+
+        ):
+
+            try:
+
+                process_name = process.info["name"]
+
+                if process_name and process_name.lower() in teams_process_names:
+
+                    current_pid = process.info["pid"]
+                    break
+
+            except (
+
+                psutil.NoSuchProcess,
+                psutil.AccessDenied,
+                psutil.ZombieProcess
+
+            ):
+
+                continue
+
+        # Teams not running
+        if current_pid is None:
+
+            return {
+
+                "success": False,
+                "restart_detected": False,
+                "restart_count": restart_count,
+                "logs": "Microsoft Teams is not currently running."
+
+            }
+
+        # First observation
+        if previous_pid is None:
+
+            previous_pid = current_pid
+
+        # PID changed -> Teams restarted
+        elif current_pid != previous_pid:
+
+            restart_count += 1
+            previous_pid = current_pid
+
+        time.sleep(check_interval)
+
+    if restart_count > 0:
 
         return {
-            "success": False,
-            "logs": webview_result["logs"]
+
+            "success": True,
+            "restart_detected": True,
+            "restart_count": restart_count,
+            "logs": (
+                f"Microsoft Teams restarted "
+                f"{restart_count} time(s) "
+                f"during monitoring."
+            )
+
         }
 
     return {
+
         "success": True,
-        "logs": "All required runtime dependencies are available."
+        "restart_detected": False,
+        "restart_count": 0,
+        "logs": (
+            "Microsoft Teams remained stable "
+            "during monitoring."
+        )
+
     }

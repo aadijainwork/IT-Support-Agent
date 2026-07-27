@@ -23,6 +23,44 @@ WORKFLOW_KEYWORDS = {
         "stuck updating",
         "repair"
     ],
+
+
+
+    "TeamsRestarting": 
+    [
+    "teams restarting",
+    "teams restart",
+    "restart teams",
+    "teams keeps restarting",
+    "teams keeps rebooting",
+    "teams keeps reopening",
+    "teams keeps closing",
+    "teams automatically restarts",
+    "teams auto restart",
+    "teams auto restarting",
+    "teams restarting automatically",
+    "teams restarts automatically",
+    "teams restarts",
+    "teams restart loop",
+    "restart loop",
+    "keeps restarting",
+    "keeps rebooting",
+    "keeps reopening",
+    "restarting",
+    "restarted",
+    "restart",
+    "auto restart",
+    "auto restarting",
+    "continuous restart",
+    "continuously restarting",
+    "restarts continuously",
+    "opens then closes",
+    "opens and closes",
+    "closes and reopens",
+    "opens then restarts",
+    "launches then closes"
+],
+
     "TeamsLaunch": [
         "teams launch",
         "launch teams",
@@ -63,10 +101,7 @@ WORKFLOW_KEYWORDS = {
         "cant open",
         "freeze",
         "freezing",
-        "freezes",
-        "closes",
-        "close",
-        "closing"
+        "freezes"
     ],
     "OutlookLaunch": [
         "outlook launch",

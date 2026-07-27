@@ -1,9 +1,16 @@
 from utils.models import WorkflowContext
-from workflows import teams_update, teams_launch, outlook_launch
+
+from workflows import (
+    teams_update,
+    teams_launch,
+    teams_restarting,
+    outlook_launch
+)
 
 WORKFLOW_MAP = {
     "TeamsUpdate": teams_update.execute,
     "TeamsLaunch": teams_launch.execute,
+    "TeamsRestarting": teams_restarting.execute,
     "OutlookLaunch": outlook_launch.execute
 }
 
@@ -27,6 +34,8 @@ def run(workflow_name: str, user_message: str) -> WorkflowContext:
 
     context.workflow = "Unknown"
     context.success = False
-    context.logs.append("Workflow not recognized or issue is unsupported.")
+    context.logs.append(
+        "Workflow not recognized or issue is unsupported."
+    )
 
     return context
