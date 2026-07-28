@@ -1,6 +1,6 @@
 .header{
     height:80px;
-    background:#ffffff;
+    background:linear-gradient(to right,#ffffff,#f8fafc);
     border-bottom:1px solid #e5e7eb;
 
     display:flex;
@@ -12,13 +12,14 @@
 
 .header-left h1{
     margin:0;
-    font-size:28px;
+    font-size:30px;
     font-weight:700;
     color:#111827;
+    letter-spacing:-0.5px;
 }
 
 .header-left p{
-    margin-top:6px;
+    margin-top:5px;
     color:#6b7280;
     font-size:14px;
 }
@@ -26,7 +27,28 @@
 .header-right{
     display:flex;
     align-items:center;
-    gap:25px;
+    gap:18px;
+}
+
+.agent-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border:1px solid #dbeafe;
+    background:#eff6ff;
+    border-radius:999px;
+    color:#2563eb;
+    font-size:14px;
+    font-weight:600;
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 8px #22c55e;
 }
 
 .notification-btn{
@@ -41,25 +63,11 @@
     justify-content:center;
     align-items:center;
 
-    transition:.2s;
+    transition:.25s;
 }
 
 .notification-btn:hover{
-    background:#e5e7eb;
-}
-
-.profile{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.profile h4{
-    margin:0;
-    font-size:15px;
-}
-
-.profile span{
-    color:#6b7280;
-    font-size:13px;
+    background:#2563eb;
+    color:white;
+    transform:translateY(-2px);
 }

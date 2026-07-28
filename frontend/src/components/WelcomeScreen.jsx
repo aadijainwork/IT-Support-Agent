@@ -6,27 +6,15 @@ function WelcomeScreen() {
     <div className="welcome-screen">
 
       <div className="welcome-icon">
-        <Bot size={55} />
+        <Bot size={55} strokeWidth={2.2} />
       </div>
 
       <h1>Welcome to AI IT Support Assistant</h1>
 
       <p>
-        Resolve Microsoft Teams, Outlook and Windows issues
-        using automated troubleshooting workflows.
+        Resolve Microsoft Teams, Outlook, Windows and IT infrastructure
+        issues using intelligent automated troubleshooting workflows.
       </p>
-
-      <div className="quick-prompts">
-
-        <button>Teams not launching</button>
-
-        <button>Outlook not syncing</button>
-
-        <button>Teams update issue</button>
-
-        <button>Computer running slow</button>
-
-      </div>
 
     </div>
   );

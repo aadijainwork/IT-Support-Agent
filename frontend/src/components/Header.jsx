@@ -1,5 +1,5 @@
 import "../css/Header.css";
-import { Bell, UserCircle } from "lucide-react";
+import { Bell, Bot } from "lucide-react";
 
 function Header() {
   return (
@@ -12,17 +12,15 @@ function Header() {
 
       <div className="header-right">
 
+        <div className="agent-status">
+          <span className="status-dot"></span>
+          <Bot size={16} />
+          <span>AI Agent Online</span>
+        </div>
+
         <button className="notification-btn">
           <Bell size={20} />
         </button>
-
-        <div className="profile">
-          <UserCircle size={36} />
-          <div>
-            <h4>Varad</h4>
-            <span>IT Support User</span>
-          </div>
-        </div>
 
       </div>
 

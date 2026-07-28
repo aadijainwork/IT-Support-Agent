@@ -2,21 +2,20 @@ import WelcomeScreen from "./WelcomeScreen";
 import ChatWindow from "./ChatWindow";
 import "../css/ChatArea.css";
 
-function ChatArea({ messages, loading }) {
-  if (messages.length === 0) {
-    return (
-      <div className="chat-area">
-        <WelcomeScreen />
-      </div>
-    );
-  }
-
+function ChatArea({
+  messages = [],
+  loading,
+}) {
   return (
     <div className="chat-area">
-      <ChatWindow
-        messages={messages}
-        loading={loading}
-      />
+      {messages.length === 0 ? (
+        <WelcomeScreen />
+      ) : (
+        <ChatWindow
+          messages={messages}
+          loading={loading}
+        />
+      )}
     </div>
   );
 }

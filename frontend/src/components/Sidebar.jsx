@@ -1,13 +1,17 @@
 import "../css/Sidebar.css";
 import {
-  MessageSquare,
   Plus,
-  History,
   Ticket,
-  Shield
+  Shield,
+  MessageSquare,
 } from "lucide-react";
 
-export default function Sidebar() {
+export default function Sidebar({
+  chats = [],
+  activeChatId,
+  onNewChat,
+  onSelectChat,
+}) {
   return (
     <aside className="sidebar">
       <div className="sidebar-top">
@@ -23,7 +27,10 @@ export default function Sidebar() {
           </div>
         </div>
 
-        <button className="new-chat-btn">
+        <button
+          className="new-chat-btn"
+          onClick={onNewChat}
+        >
           <Plus size={18} />
           New Chat
         </button>
@@ -32,15 +39,34 @@ export default function Sidebar() {
 
       <div className="sidebar-menu">
 
-        <div className="menu-item active">
-          <MessageSquare size={20} />
-          <span>Chat</span>
+        <h4 className="history-title">History</h4>
+
+        <div className="history-list">
+
+          {chats.length === 0 ? (
+            <div className="empty-history">
+              No previous chats
+            </div>
+          ) : (
+            chats.map((chat) => (
+              <div
+                key={chat.id}
+                className={`history-item ${
+                  activeChatId === chat.id ? "active" : ""
+                }`}
+                onClick={() => onSelectChat(chat.id)}
+              >
+                <MessageSquare size={18} />
+                <span>
+                  {chat.title || "New Chat"}
+                </span>
+              </div>
+            ))
+          )}
+
         </div>
 
-        <div className="menu-item">
-          <History size={20} />
-          <span>History</span>
-        </div>
+        <div className="menu-divider"></div>
 
         <div className="menu-item">
           <Ticket size={20} />
