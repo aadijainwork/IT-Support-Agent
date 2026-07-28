@@ -61,6 +61,41 @@ WORKFLOW_KEYWORDS = {
     "launches then closes"
 ],
 
+
+    "OutlookRestarting": [
+    "outlook restarting",
+    "outlook restart",
+    "restart outlook",
+    "outlook keeps restarting",
+    "outlook keeps rebooting",
+    "outlook keeps reopening",
+    "outlook keeps closing",
+    "outlook automatically restarts",
+    "outlook auto restart",
+    "outlook auto restarting",
+    "outlook restarting automatically",
+    "outlook restarts automatically",
+    "outlook restarts",
+    "outlook restart loop",
+    "restart loop",
+    "keeps restarting",
+    "keeps rebooting",
+    "keeps reopening",
+    "restarting",
+    "restarted",
+    "restart",
+    "auto restart",
+    "auto restarting",
+    "continuous restart",
+    "continuously restarting",
+    "restarts continuously",
+    "opens then closes",
+    "opens and closes",
+    "closes and reopens",
+    "opens then restarts",
+    "launches then closes"
+],
+
     "TeamsLaunch": [
         "teams launch",
         "launch teams",
@@ -153,6 +188,7 @@ WORKFLOW_KEYWORDS = {
         "close",
         "closing"
     ]
+    
 }
 
 

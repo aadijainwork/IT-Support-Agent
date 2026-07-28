@@ -1,17 +1,20 @@
 from utils.models import WorkflowContext
 
 from workflows import (
+    outlook_restarting,
     teams_update,
     teams_launch,
     teams_restarting,
-    outlook_launch
+    outlook_launch,
+    outlook_restarting
 )
 
 WORKFLOW_MAP = {
     "TeamsUpdate": teams_update.execute,
     "TeamsLaunch": teams_launch.execute,
     "TeamsRestarting": teams_restarting.execute,
-    "OutlookLaunch": outlook_launch.execute
+    "OutlookLaunch": outlook_launch.execute,
+    "OutlookRestarting": outlook_restarting.execute
 }
 
 
