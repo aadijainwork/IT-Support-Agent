@@ -1,20 +1,40 @@
 .home {
     display: flex;
     height: 100vh;
-    background: #f5f7fb;
+    overflow: hidden;
+
+    background: radial-gradient(
+            circle at top right,
+            rgba(20, 184, 166, 0.35),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #063b3d 0%,
+            #075b5d 35%,
+            #0f766e 70%,
+            #14b8a6 100%
+        );
 }
 
 .main-content {
     flex: 1;
+
     display: flex;
     flex-direction: column;
+
     overflow: hidden;
+
+    background: transparent;
 }
 
 .content-area {
     flex: 1;
+
     display: flex;
     flex-direction: column;
+
     overflow: hidden;
-    background: #f5f7fb;
+
+    background: transparent;
 }

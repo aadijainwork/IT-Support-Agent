@@ -1,12 +1,14 @@
 /* ==========================================================
-   CHAT INPUT
-   Enterprise AI Assistant
+   CHAT INPUT CONTAINER
 ========================================================== */
 
 .chat-input-container{
-    background:#ffffff;
-    border-top:1px solid #e5e7eb;
-    padding:22px 35px;
+
+    padding:24px 36px 30px;
+
+    background:transparent;
+
+    border:none;
 }
 
 /* ==========================================================
@@ -15,38 +17,46 @@
 
 .chat-input-wrapper{
 
-    max-width:950px;
+    max-width:980px;
     width:100%;
 
     margin:0 auto;
 
     display:flex;
     align-items:flex-end;
+
     gap:14px;
 
-    padding:14px 18px;
+    padding:16px 18px;
 
-    background:#ffffff;
+    background:rgba(255,255,255,.10);
 
-    border:1px solid #dbe3f0;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
     border-radius:22px;
 
     box-shadow:
-        0 6px 20px rgba(15,23,42,.06);
+        0 20px 40px rgba(0,0,0,.18);
 
     transition:
-        border-color .25s,
-        box-shadow .25s,
-        transform .25s;
+        .3s ease;
+}
+
+.chat-input-wrapper:hover{
+
+    border-color:rgba(20,184,166,.35);
 }
 
 .chat-input-wrapper:focus-within{
 
-    border-color:#2563eb;
+    border-color:#14b8a6;
 
     box-shadow:
-        0 0 0 4px rgba(37,99,235,.10);
-
+        0 0 0 3px rgba(20,184,166,.18),
+        0 20px 40px rgba(0,0,0,.22);
 }
 
 /* ==========================================================
@@ -64,10 +74,11 @@
 
     background:transparent;
 
-    font-size:16px;
-    font-family:inherit;
+    color:#ffffff;
 
-    color:#111827;
+    font-size:16px;
+
+    font-family:inherit;
 
     line-height:1.6;
 
@@ -79,7 +90,7 @@
 
 .chat-textarea::placeholder{
 
-    color:#9ca3af;
+    color:rgba(255,255,255,.55);
 }
 
 /* ==========================================================
@@ -89,8 +100,8 @@
 .mic-button,
 .send-button{
 
-    width:48px;
-    height:48px;
+    width:50px;
+    height:50px;
 
     border:none;
 
@@ -102,10 +113,7 @@
 
     cursor:pointer;
 
-    transition:
-        transform .25s,
-        background .25s,
-        box-shadow .25s;
+    transition:.3s ease;
 }
 
 /* ==========================================================
@@ -114,28 +122,38 @@
 
 .mic-button{
 
-    background:#f3f4f6;
-    color:#4b5563;
+    background:rgba(255,255,255,.10);
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.10);
 }
 
 .mic-button:hover{
 
-    background:#e8eefc;
+    background:rgba(20,184,166,.18);
 
-    color:#2563eb;
+    color:#ffffff;
+
+    border-color:#14b8a6;
 
     transform:translateY(-2px);
 }
 
 .mic-button.active{
 
-    background:#2563eb;
-    color:#ffffff;
+    background:linear-gradient(
+        135deg,
+        #0f766e,
+        #14b8a6
+    );
+
+    color:white;
 
     box-shadow:
-        0 0 20px rgba(37,99,235,.30);
+        0 0 0 0 rgba(20,184,166,.35);
 
-    animation:micPulse 1.3s infinite;
+    animation:micPulse 1.4s infinite;
 }
 
 /* ==========================================================
@@ -144,20 +162,39 @@
 
 .send-button{
 
-    background:#2563eb;
-    color:#ffffff;
+    background:linear-gradient(
+        135deg,
+        #0f766e,
+        #14b8a6
+    );
+
+    color:white;
+
+    box-shadow:
+        0 10px 24px rgba(20,184,166,.25);
 }
 
 .send-button:hover{
 
-    background:#1d4ed8;
+    background:linear-gradient(
+        135deg,
+        #14b8a6,
+        #2dd4bf
+    );
 
     transform:translateY(-2px);
+
+    box-shadow:
+        0 16px 34px rgba(20,184,166,.38);
 }
 
 .send-button:disabled{
 
-    background:#cbd5e1;
+    background:rgba(255,255,255,.15);
+
+    color:rgba(255,255,255,.45);
+
+    box-shadow:none;
 
     cursor:not-allowed;
 
@@ -174,22 +211,22 @@
 }
 
 /* ==========================================================
-   HINT
+   INPUT HINT
 ========================================================== */
 
 .input-hint{
 
-    margin-top:12px;
+    margin-top:14px;
 
     text-align:center;
 
     font-size:13px;
 
-    color:#6b7280;
+    color:rgba(255,255,255,.65);
 }
 
 /* ==========================================================
-   LISTENING MODAL OVERLAY
+   VOICE MODAL OVERLAY
 ========================================================== */
 
 .voice-modal-overlay{
@@ -198,46 +235,48 @@
 
     inset:0;
 
-    background:rgba(17,24,39,.18);
-
-    backdrop-filter:blur(8px);
-
-    -webkit-backdrop-filter:blur(8px);
-
     display:flex;
     justify-content:center;
     align-items:center;
 
+    background:rgba(2,20,22,.55);
+
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
     z-index:9999;
 
-    animation:fadeIn .25s ease;
+    animation:fadeIn .3s ease;
 }
 
 /* ==========================================================
-   LISTENING MODAL
+   VOICE MODAL
 ========================================================== */
 
 .voice-modal{
 
     position:relative;
 
-    width:480px;
+    width:500px;
     max-width:92%;
-
-    background:#ffffff;
-
-    border-radius:24px;
 
     padding:42px;
 
-    text-align:center;
+    border-radius:28px;
 
-    border:1px solid #e5e7eb;
+    background:rgba(7,91,93,.82);
+
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+
+    border:1px solid rgba(255,255,255,.10);
 
     box-shadow:
-        0 25px 60px rgba(0,0,0,.16);
+        0 30px 60px rgba(0,0,0,.35);
 
-    animation:popup .30s ease;
+    text-align:center;
+
+    animation:popup .3s ease;
 }
 
 /* ==========================================================
@@ -251,101 +290,101 @@
     right:18px;
     top:18px;
 
-    width:36px;
-    height:36px;
+    width:38px;
+    height:38px;
 
     border:none;
 
     border-radius:50%;
 
-    background:#f3f4f6;
+    background:rgba(255,255,255,.08);
 
-    color:#6b7280;
-
-    cursor:pointer;
+    color:white;
 
     display:flex;
     justify-content:center;
     align-items:center;
 
-    transition:.25s;
+    cursor:pointer;
+
+    transition:.3s;
 }
 
 .voice-close-btn:hover{
 
     background:#ef4444;
 
-    color:white;
+    transform:rotate(90deg);
 }
 
 /* ==========================================================
-   MICROPHONE SECTION
+   MICROPHONE
 ========================================================== */
 
 .voice-mic-wrapper{
 
     position:relative;
 
-    width:130px;
-    height:130px;
+    width:140px;
+    height:140px;
 
-    margin:0 auto 28px;
+    margin:0 auto 30px;
 
     display:flex;
     justify-content:center;
     align-items:center;
 }
-
-/* Outer animated ring */
 
 .voice-mic-ring{
 
     position:absolute;
 
-    width:130px;
-    height:130px;
+    width:140px;
+    height:140px;
 
     border-radius:50%;
 
-    background:rgba(37,99,235,.08);
+    background:rgba(20,184,166,.12);
 
     animation:ringPulse 2s infinite;
 }
-
-/* Main microphone circle */
 
 .voice-mic-circle{
 
     position:relative;
 
-    width:86px;
-    height:86px;
+    width:90px;
+    height:90px;
 
     border-radius:50%;
-
-    background:#2563eb;
-
-    color:#ffffff;
 
     display:flex;
     justify-content:center;
     align-items:center;
 
+    background:linear-gradient(
+        135deg,
+        #0f766e,
+        #14b8a6
+    );
+
+    color:white;
+
     box-shadow:
-        0 12px 28px rgba(37,99,235,.22);
+        0 15px 35px rgba(20,184,166,.40);
 
     animation:micFloat 2.2s ease-in-out infinite;
 }
 
 /* ==========================================================
-   MODAL TITLE
+   TITLE
 ========================================================== */
 
 .voice-modal h2{
 
     margin:0;
 
-    color:#111827;
+    color:white;
 
     font-size:28px;
 
@@ -361,15 +400,15 @@
     margin-top:12px;
     margin-bottom:28px;
 
-    color:#6b7280;
+    color:rgba(255,255,255,.72);
 
     font-size:16px;
 
-    line-height:1.6;
+    line-height:1.7;
 }
 
 /* ==========================================================
-   LIVE TRANSCRIPT
+   TRANSCRIPT
 ========================================================== */
 
 .voice-transcript{
@@ -380,15 +419,15 @@
     justify-content:center;
     align-items:center;
 
-    padding:18px 22px;
+    padding:20px 24px;
 
-    background:#f9fafb;
+    border-radius:18px;
 
-    border:1px solid #e5e7eb;
+    background:rgba(255,255,255,.07);
 
-    border-radius:16px;
+    border:1px solid rgba(255,255,255,.08);
 
-    color:#111827;
+    color:white;
 
     font-size:16px;
 
@@ -397,75 +436,54 @@
     text-align:center;
 
     word-break:break-word;
-
-    transition:.25s;
 }
-
-/* Placeholder */
 
 .voice-placeholder{
 
-    color:#9ca3af;
+    color:rgba(255,255,255,.45);
 
     font-style:italic;
 }
 
 /* ==========================================================
-   WAVEFORM
+   SOUND WAVE
 ========================================================== */
 
 .voice-wave{
 
-    margin:30px auto 18px;
-
-    height:46px;
+    margin:32px auto 18px;
 
     display:flex;
     justify-content:center;
     align-items:flex-end;
 
-    gap:5px;
+    gap:6px;
+
+    height:46px;
 }
 
 .voice-wave span{
 
-    width:4px;
+    width:5px;
 
-    height:14px;
+    height:16px;
 
     border-radius:999px;
 
-    background:#2563eb;
+    background:linear-gradient(
+        180deg,
+        #2dd4bf,
+        #0f766e
+    );
 
     animation:wave 1.1s ease-in-out infinite;
 }
 
-/* Random heights */
-
-.voice-wave span:nth-child(2n){
-
-    height:22px;
-}
-
-.voice-wave span:nth-child(3n){
-
-    height:30px;
-}
-
-.voice-wave span:nth-child(5n){
-
-    height:18px;
-}
-
-.voice-wave span:nth-child(7n){
-
-    height:34px;
-}
-
-.voice-wave span:nth-child(11n){
-
-    height:26px;
-}
+.voice-wave span:nth-child(2n){height:24px;}
+.voice-wave span:nth-child(3n){height:34px;}
+.voice-wave span:nth-child(5n){height:18px;}
+.voice-wave span:nth-child(7n){height:38px;}
+.voice-wave span:nth-child(11n){height:28px;}
 
 /* ==========================================================
    STATUS
@@ -479,13 +497,13 @@
 
     gap:10px;
 
-    margin-top:10px;
+    margin-top:14px;
+
+    color:white;
 
     font-size:15px;
 
     font-weight:600;
-
-    color:#2563eb;
 }
 
 .voice-status-dot{
@@ -495,13 +513,16 @@
 
     border-radius:50%;
 
-    background:#2563eb;
+    background:#2dd4bf;
+
+    box-shadow:
+        0 0 12px rgba(45,212,191,.7);
 
     animation:statusBlink 1.2s infinite;
 }
 
 /* ==========================================================
-   FOOTER TEXT
+   FOOTER
 ========================================================== */
 
 .voice-modal small{
@@ -510,11 +531,11 @@
 
     margin-top:22px;
 
-    color:#9ca3af;
+    color:rgba(255,255,255,.55);
+
+    line-height:1.6;
 
     font-size:13px;
-
-    line-height:1.5;
 }
 
 /* ==========================================================
@@ -548,16 +569,24 @@
         transform:scale(1);
 
         box-shadow:
-            0 0 0 0 rgba(37,99,235,.35);
+            0 0 0 0 rgba(20,184,166,.45),
+            0 10px 25px rgba(20,184,166,.30);
+
+    }
+
+    40%{
+
+        transform:scale(1.05);
 
     }
 
     70%{
 
-        transform:scale(1.05);
+        transform:scale(1.12);
 
         box-shadow:
-            0 0 0 18px rgba(37,99,235,0);
+            0 0 0 22px rgba(20,184,166,0),
+            0 16px 40px rgba(20,184,166,.15);
 
     }
 
@@ -566,7 +595,8 @@
         transform:scale(1);
 
         box-shadow:
-            0 0 0 0 rgba(37,99,235,0);
+            0 0 0 0 rgba(20,184,166,0),
+            0 10px 25px rgba(20,184,166,.25);
 
     }
 
@@ -580,25 +610,25 @@
 
     0%{
 
-        transform:scale(.85);
+        transform:scale(.82);
 
-        opacity:.7;
+        opacity:.75;
 
     }
 
     50%{
 
-        transform:scale(1.15);
+        transform:scale(1.22);
 
-        opacity:.18;
+        opacity:.15;
 
     }
 
     100%{
 
-        transform:scale(.85);
+        transform:scale(.82);
 
-        opacity:.7;
+        opacity:.75;
 
     }
 
@@ -612,19 +642,41 @@
 
     0%{
 
-        transform:translateY(0px);
+        transform:
+            translateY(0px)
+            rotate(0deg);
+
+    }
+
+    25%{
+
+        transform:
+            translateY(-5px)
+            rotate(-1deg);
 
     }
 
     50%{
 
-        transform:translateY(-8px);
+        transform:
+            translateY(-10px)
+            rotate(0deg);
+
+    }
+
+    75%{
+
+        transform:
+            translateY(-5px)
+            rotate(1deg);
 
     }
 
     100%{
 
-        transform:translateY(0px);
+        transform:
+            translateY(0px)
+            rotate(0deg);
 
     }
 
@@ -638,25 +690,41 @@
 
     0%{
 
-        transform:scaleY(.35);
+        transform:scaleY(.30);
 
-        opacity:.45;
+        opacity:.40;
+
+    }
+
+    20%{
+
+        transform:scaleY(1.15);
+
+        opacity:.80;
 
     }
 
     50%{
 
-        transform:scaleY(1.8);
+        transform:scaleY(2.0);
 
         opacity:1;
 
     }
 
+    80%{
+
+        transform:scaleY(1.15);
+
+        opacity:.80;
+
+    }
+
     100%{
 
-        transform:scaleY(.35);
+        transform:scaleY(.30);
 
-        opacity:.45;
+        opacity:.40;
 
     }
 
@@ -670,7 +738,9 @@
 
     0%{
 
-        opacity:.25;
+        opacity:.35;
+
+        transform:scale(.9);
 
     }
 
@@ -678,18 +748,22 @@
 
         opacity:1;
 
+        transform:scale(1.3);
+
     }
 
     100%{
 
-        opacity:.25;
+        opacity:.35;
+
+        transform:scale(.9);
 
     }
 
 }
 
 /* ==========================================================
-   MODAL POPUP
+   POPUP
 ========================================================== */
 
 @keyframes popup{
@@ -699,8 +773,8 @@
         opacity:0;
 
         transform:
-            translateY(25px)
-            scale(.94);
+            translateY(40px)
+            scale(.92);
 
     }
 
@@ -717,7 +791,7 @@
 }
 
 /* ==========================================================
-   FADE IN
+   FADE
 ========================================================== */
 
 @keyframes fadeIn{
@@ -737,92 +811,188 @@
 }
 
 /* ==========================================================
+   GLASS SHIMMER
+========================================================== */
+
+@keyframes glassGlow{
+
+    0%{
+
+        box-shadow:
+            0 0 0 rgba(20,184,166,0);
+
+    }
+
+    50%{
+
+        box-shadow:
+            0 0 35px rgba(20,184,166,.22);
+
+    }
+
+    100%{
+
+        box-shadow:
+            0 0 0 rgba(20,184,166,0);
+
+    }
+
+}
+
+/* ==========================================================
+   FLOATING INPUT
+========================================================== */
+
+@keyframes floatInput{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-2px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* ==========================================================
    RESPONSIVE
 ========================================================== */
+
+@media (max-width:1024px){
+
+    .chat-input-container{
+
+        padding:20px 24px 26px;
+    }
+
+    .chat-input-wrapper{
+
+        max-width:100%;
+    }
+
+}
 
 @media (max-width:768px){
 
     .chat-input-container{
 
-        padding:16px;
-
+        padding:18px;
     }
 
     .chat-input-wrapper{
 
-        padding:12px 14px;
+        padding:14px;
 
+        border-radius:18px;
+
+        gap:12px;
+    }
+
+    .chat-textarea{
+
+        font-size:15px;
+    }
+
+    .mic-button,
+    .send-button{
+
+        width:46px;
+        height:46px;
     }
 
     .voice-modal{
 
         width:92%;
 
-        padding:30px 22px;
+        padding:32px 22px;
 
+        border-radius:22px;
     }
 
     .voice-modal h2{
 
         font-size:24px;
-
     }
 
     .voice-modal p{
 
         font-size:15px;
-
     }
 
     .voice-transcript{
 
-        min-height:85px;
+        min-height:90px;
 
         font-size:15px;
-
     }
 
     .voice-mic-wrapper{
 
-        width:110px;
-        height:110px;
-
+        width:120px;
+        height:120px;
     }
 
     .voice-mic-ring{
 
-        width:110px;
-        height:110px;
-
+        width:120px;
+        height:120px;
     }
 
     .voice-mic-circle{
 
-        width:76px;
-        height:76px;
-
+        width:82px;
+        height:82px;
     }
 
 }
 
 @media (max-width:500px){
 
-    .voice-wave{
+    .chat-input-container{
 
-        gap:3px;
-
+        padding:14px;
     }
 
-    .voice-wave span{
+    .chat-input-wrapper{
 
-        width:3px;
+        border-radius:16px;
 
+        padding:12px;
+    }
+
+    .chat-textarea{
+
+        font-size:14px;
     }
 
     .voice-modal{
 
-        border-radius:18px;
+        width:95%;
 
+        padding:26px 18px;
+
+        border-radius:18px;
+    }
+
+    .voice-wave{
+
+        gap:4px;
+    }
+
+    .voice-wave span{
+
+        width:4px;
     }
 
 }
@@ -831,44 +1001,72 @@
    SCROLLBAR
 ========================================================== */
 
+.chat-textarea::-webkit-scrollbar,
 .voice-transcript::-webkit-scrollbar{
 
     width:6px;
-
 }
 
+.chat-textarea::-webkit-scrollbar-thumb,
 .voice-transcript::-webkit-scrollbar-thumb{
 
-    background:#cbd5e1;
+    background:rgba(255,255,255,.25);
 
-    border-radius:10px;
-
+    border-radius:999px;
 }
 
+.chat-textarea::-webkit-scrollbar-thumb:hover,
+.voice-transcript::-webkit-scrollbar-thumb:hover{
+
+    background:rgba(20,184,166,.60);
+}
+
+.chat-textarea::-webkit-scrollbar-track,
 .voice-transcript::-webkit-scrollbar-track{
 
     background:transparent;
+}
 
+/* Firefox */
+
+.chat-textarea,
+.voice-transcript{
+
+    scrollbar-width:thin;
+
+    scrollbar-color:rgba(255,255,255,.25) transparent;
 }
 
 /* ==========================================================
-   SELECTION
+   TEXT SELECTION
 ========================================================== */
 
+.chat-textarea::selection,
 .voice-transcript::selection{
 
-    background:#bfdbfe;
+    background:rgba(20,184,166,.35);
 
+    color:#ffffff;
 }
 
 /* ==========================================================
-   SUBTLE HOVER EFFECT
+   HOVER EFFECTS
 ========================================================== */
 
 .voice-modal:hover{
 
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 36px 70px rgba(0,0,0,.40);
+
+    transition:.3s ease;
+}
+
+.chat-input-wrapper:hover{
+
     transform:translateY(-2px);
 
-    transition:.25s ease;
-
+    box-shadow:
+        0 24px 50px rgba(0,0,0,.22);
 }

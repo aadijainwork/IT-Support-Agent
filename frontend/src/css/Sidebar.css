@@ -1,242 +1,305 @@
 .sidebar {
-    width: 300px;
+    width: 280px;
     height: 100vh;
-    background: #ffffff;
-    border-right: 1px solid #e5e7eb;
+
+    background: rgba(5, 56, 58, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-right: 1px solid rgba(255,255,255,.08);
 
     display: flex;
     flex-direction: column;
 
     flex-shrink: 0;
+
+    box-shadow: 8px 0 30px rgba(0,0,0,.18);
 }
 
-/* ==========================
+/* ==========================================
    TOP
-========================== */
+========================================== */
 
 .sidebar-top {
-    padding: 28px 22px 22px;
-    border-bottom: 1px solid #eef2f7;
+
+    padding: 30px 22px 24px;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
 .logo-section {
+
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 26px;
+
+    margin-bottom: 28px;
 }
 
 .logo-circle {
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
 
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    width: 58px;
+    height: 58px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #14b8a6,
+        #2dd4bf
+    );
+
+    color: white;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    color: white;
-
-    box-shadow: 0 8px 20px rgba(37,99,235,.25);
+    box-shadow: 0 12px 30px rgba(20,184,166,.35);
 }
 
 .logo-section h2 {
+
     margin: 0;
+
+    color: white;
+
     font-size: 17px;
+
     font-weight: 700;
-    color: #111827;
 }
 
 .logo-section p {
-    margin-top: 4px;
-    color: #6b7280;
+
+    margin-top: 5px;
+
+    color: rgba(255,255,255,.72);
+
     font-size: 13px;
 }
 
-/* ==========================
+/* ==========================================
    NEW CHAT
-========================== */
+========================================== */
 
 .new-chat-btn {
+
     width: 100%;
-    height: 50px;
+    height: 56px;
 
     border: none;
-    border-radius: 14px;
 
-    background: #2563eb;
+    border-radius: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #14b8a6
+    );
+
     color: white;
+
+    font-size: 16px;
+    font-weight: 600;
 
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 
-    font-size: 15px;
-    font-weight: 600;
-
     cursor: pointer;
 
-    transition: .25s;
+    transition: .3s;
 }
 
 .new-chat-btn:hover {
-    background: #1d4ed8;
+
     transform: translateY(-2px);
+
+    box-shadow: 0 12px 28px rgba(20,184,166,.35);
+
+    background: linear-gradient(
+        135deg,
+        #14b8a6,
+        #2dd4bf
+    );
 }
 
-.new-chat-btn:active {
-    transform: scale(.98);
-}
-
-/* ==========================
+/* ==========================================
    MENU
-========================== */
+========================================== */
 
 .sidebar-menu {
+
     flex: 1;
 
-    padding: 24px 18px;
+    padding: 26px 18px;
 
     overflow-y: auto;
 }
 
-/* Scrollbar */
-
 .sidebar-menu::-webkit-scrollbar {
+
     width: 6px;
 }
 
 .sidebar-menu::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 10px;
+
+    background: rgba(255,255,255,.20);
+
+    border-radius: 999px;
 }
 
-/* ==========================
+/* ==========================================
    HISTORY
-========================== */
+========================================== */
 
 .history-title {
-    margin: 0 0 14px;
 
-    color: #9ca3af;
+    margin: 0 0 16px;
+
+    color: rgba(255,255,255,.55);
 
     font-size: 12px;
+
     font-weight: 700;
 
-    letter-spacing: 1.2px;
+    letter-spacing: 2px;
 
     text-transform: uppercase;
 }
 
 .history-list {
+
     display: flex;
+
     flex-direction: column;
-    gap: 8px;
+
+    gap: 10px;
 }
 
 .empty-history {
-    color: #9ca3af;
+
+    color: rgba(255,255,255,.55);
+
     font-size: 13px;
+
     padding: 10px;
 }
 
 .history-item {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 
-    padding: 12px 14px;
+    padding: 14px 16px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
     cursor: pointer;
 
-    color: #374151;
+    color: rgba(255,255,255,.88);
 
-    transition: .2s;
-}
-
-.history-item svg {
-    flex-shrink: 0;
+    transition: .25s;
 }
 
 .history-item span {
+
     flex: 1;
 
     overflow: hidden;
+
     white-space: nowrap;
+
     text-overflow: ellipsis;
 
     font-size: 14px;
 }
 
 .history-item:hover {
-    background: #eff6ff;
-    color: #2563eb;
+
+    background: rgba(255,255,255,.08);
 }
 
 .history-item.active {
-    background: #2563eb;
+
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #14b8a6
+    );
+
     color: white;
 
-    box-shadow: 0 6px 18px rgba(37,99,235,.20);
+    box-shadow: 0 12px 28px rgba(20,184,166,.35);
 }
 
-/* ==========================
+/* ==========================================
    DIVIDER
-========================== */
+========================================== */
 
 .menu-divider {
-    height: 1px;
-    background: #e5e7eb;
 
-    margin: 24px 0;
+    height: 1px;
+
+    background: rgba(255,255,255,.08);
+
+    margin: 26px 0;
 }
 
-/* ==========================
+/* ==========================================
    MENU ITEM
-========================== */
+========================================== */
 
 .menu-item {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 
-    padding: 12px 14px;
+    padding: 14px 16px;
 
-    border-radius: 12px;
+    border-radius: 14px;
+
+    color: rgba(255,255,255,.88);
 
     cursor: pointer;
 
-    color: #374151;
-
-    transition: .2s;
+    transition: .25s;
 }
 
 .menu-item:hover {
-    background: #f3f4f6;
+
+    background: rgba(255,255,255,.08);
+
+    color: white;
 }
 
 .menu-item span {
+
     font-size: 15px;
+
     font-weight: 500;
 }
 
-/* ==========================
+/* ==========================================
    FOOTER
-========================== */
+========================================== */
 
 .sidebar-footer {
-    border-top: 1px solid #eef2f7;
+
+    border-top: 1px solid rgba(255,255,255,.08);
 
     padding: 18px;
 
     text-align: center;
 
-    color: #9ca3af;
+    color: rgba(255,255,255,.45);
 
     font-size: 13px;
 }
