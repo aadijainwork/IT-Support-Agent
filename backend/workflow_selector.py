@@ -133,6 +133,44 @@ ISSUE_KEYWORDS = {
         "version",
 
         "repair"
+    ],
+
+    "HeadsetDetected": [
+        "headset",
+        "headset not detected",
+        "headset is not detected",
+        "headset not working",
+        "headset is not working",
+        "headphone",
+        "headphones",
+        "earphone",
+        "earphones",
+        "bluetooth headset",
+        "usb headset"
+    ],
+
+    "MicrophoneNotWorking": [
+        "microphone",
+        "mic",
+        "microphone not working",
+        "mic not working",
+        "microphone is not working",
+        "mic is not working",
+        "cannot hear me",
+        "cant hear me",
+        "nobody can hear me",
+        "no mic input"
+    ],
+
+    "NoAudio": [
+        "no audio",
+        "no sound",
+        "cannot hear",
+        "cant hear",
+        "audio not working",
+        "sound not working",
+        "speaker not working",
+        "no playback audio"
     ]
 }
 
@@ -151,6 +189,15 @@ WORKFLOW_MAP = {
 
     ("Teams", "Update"):
         "TeamsUpdate",
+
+    ("Teams", "HeadsetDetected"):
+        "TeamsHeadsetDetected",
+
+    ("Teams", "MicrophoneNotWorking"):
+        "TeamsMicrophoneNotWorking",
+
+    ("Teams", "NoAudio"):
+        "TeamsNoAudio",
 
     ("Outlook", "Launch"):
         "OutlookLaunch",
@@ -510,6 +557,67 @@ def apply_bonus_rules(
 
                 score += 50
 
+    # --------------------------------------------------------
+    # TEAMS HEADSET
+    # --------------------------------------------------------
+
+    if application == "Teams" and issue == "HeadsetDetected":
+
+        bonus = [
+            "headset",
+            "headphone",
+            "headphones",
+            "earphones",
+            "headset not detected",
+            "headset not working"
+        ]
+
+        for phrase in bonus:
+
+            if _normalize_text(phrase) in message:
+
+                score += 50
+
+    # --------------------------------------------------------
+    # TEAMS MICROPHONE
+    # --------------------------------------------------------
+
+    if application == "Teams" and issue == "MicrophoneNotWorking":
+
+        bonus = [
+            "microphone",
+            "mic",
+            "microphone not working",
+            "mic not working",
+            "cannot hear me"
+        ]
+
+        for phrase in bonus:
+
+            if _normalize_text(phrase) in message:
+
+                score += 50
+
+    # --------------------------------------------------------
+    # TEAMS NO AUDIO
+    # --------------------------------------------------------
+
+    if application == "Teams" and issue == "NoAudio":
+
+        bonus = [
+            "no audio",
+            "no sound",
+            "audio not working",
+            "sound not working",
+            "cannot hear"
+        ]
+
+        for phrase in bonus:
+
+            if _normalize_text(phrase) in message:
+
+                score += 50
+
     return score
 
 
@@ -611,7 +719,7 @@ def select(user_message: str) -> str:
         ):
             score += 100
 
-        # "Teams not working"
+        # "Teams not working" (Launch boost, excluding audio/hardware issues)
         if (
             application == "Teams"
             and issue == "Launch"
@@ -622,6 +730,11 @@ def select(user_message: str) -> str:
                 or "isnt working" in message
                 or "not responding" in message
             )
+            and "mic" not in message
+            and "microphone" not in message
+            and "headset" not in message
+            and "audio" not in message
+            and "sound" not in message
         ):
             score += 100
 
